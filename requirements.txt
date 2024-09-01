@@ -1,0 +1,9 @@
+easyocr
+fpdf
+numpy
+opencv_contrib_python
+opencv_python
+opencv_python_headless
+pdf2image
+Pillow
+pytesseract
