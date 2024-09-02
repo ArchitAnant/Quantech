@@ -5,7 +5,7 @@ import chardet
 import fitz
 
 
-file_path = ''
+file_path = '/Users/architanant/Documents/Quantech/file_processing/multifile.pdf'
 
 
 def print_pdf(file_path):
@@ -41,17 +41,15 @@ def print_doc(file_path):
         parra_lines.append(paragraph.text)
 
     return " ".join(parra_lines)
-
-
-
 # str_val = print_pdf(file_path)
 # print(str_val)
   # PyMuPDF
 
+
 def get_text_area_percentage(pdf_path):
     pdf_document = fitz.open(pdf_path)
-    total_page_area = 0
-    text_area = 0
+    total_document_area = 0
+    total_text_area = 0
 
     for page_number in range(len(pdf_document)):
         page = pdf_document.load_page(page_number)
@@ -59,16 +57,20 @@ def get_text_area_percentage(pdf_path):
         # Page dimensions
         rect = page.rect
         total_page_area = rect.width * rect.height
+        total_document_area += total_page_area  # Accumulate total document area
 
         # Extract text blocks
         text_blocks = page.get_text("blocks")
         for block in text_blocks:
-            _, _, _, _, text,_ ,_ = block
-            if text.strip():  # Check if text is not empty
-                text_rect = fitz.Rect(block[:4])  # Bounding box of text
-                text_area += text_rect.width * text_rect.height
+            if len(block) >= 6:  # Ensure block structure is as expected
+                x0, y0, x1, y1, text, *_ = block
+                if text.strip():  # Check if text is not empty
+                    text_rect = fitz.Rect(x0, y0, x1, y1)  # Bounding box of text
+                    total_text_area += text_rect.width * text_rect.height  # Accumulate text area
 
-    return (text_area / total_page_area) * 100
+    # Calculate percentage of document covered by text
+    return (total_text_area / total_document_area) * 100 if total_document_area > 0 else 0
+
 
 
 def check_images_in_pdf(pdf_path):
