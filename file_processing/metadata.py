@@ -1,11 +1,11 @@
 import os
 import PyPDF2
-from docx import Document
+# from docx import Document
 import chardet
 import fitz
 
 
-file_path = '/Users/architanant/Documents/Quantech/file_processing/multifile.pdf'
+file_path = '/Users/macbook/gitdemo/sih/Quantech/file_processing/mixed_pdf.pdf'
 
 
 def print_pdf(file_path):
@@ -32,24 +32,26 @@ def print_pdf(file_path):
 
 
 
-def print_doc(file_path):
-    parra_lines = []
-    # Open the .docx file
-    doc = Document(file_path)
-    # Extract and print text
-    for paragraph in doc.paragraphs:
-        parra_lines.append(paragraph.text)
+# def print_doc(file_path):
+#     parra_lines = []
+#     # Open the .docx file
+#     doc = Document(file_path)
+#     # Extract and print text
+#     for paragraph in doc.paragraphs:
+#         parra_lines.append(paragraph.text)
 
-    return " ".join(parra_lines)
+#     return " ".join(parra_lines)
+
+
+
 # str_val = print_pdf(file_path)
 # print(str_val)
   # PyMuPDF
 
-
 def get_text_area_percentage(pdf_path):
     pdf_document = fitz.open(pdf_path)
-    total_document_area = 0
-    total_text_area = 0
+    total_page_area = 0
+    text_area = 0
 
     for page_number in range(len(pdf_document)):
         page = pdf_document.load_page(page_number)
@@ -57,20 +59,16 @@ def get_text_area_percentage(pdf_path):
         # Page dimensions
         rect = page.rect
         total_page_area = rect.width * rect.height
-        total_document_area += total_page_area  # Accumulate total document area
 
         # Extract text blocks
         text_blocks = page.get_text("blocks")
         for block in text_blocks:
-            if len(block) >= 6:  # Ensure block structure is as expected
-                x0, y0, x1, y1, text, *_ = block
-                if text.strip():  # Check if text is not empty
-                    text_rect = fitz.Rect(x0, y0, x1, y1)  # Bounding box of text
-                    total_text_area += text_rect.width * text_rect.height  # Accumulate text area
+            _, _, _, _, text,_ ,_ = block
+            if text.strip():  # Check if text is not empty
+                text_rect = fitz.Rect(block[:4])  # Bounding box of text
+                text_area += text_rect.width * text_rect.height
 
-    # Calculate percentage of document covered by text
-    return (total_text_area / total_document_area) * 100 if total_document_area > 0 else 0
-
+    return (text_area / total_page_area) * 100
 
 
 def check_images_in_pdf(pdf_path):
@@ -85,11 +83,26 @@ def check_images_in_pdf(pdf_path):
             break
 
     return has_images
+def get_file_size(file_path):
+        try:
+            return os.path.getsize(file_path)
+        except OSError as e:
+            print(f"Error: {e}")
+            return None
 
+def classification(file_path,thr):
 
-def classification(file_path):
-    #TODO
-    pass
+ ab=get_text_area_percentage(file_path)
+ if (ab>=thr): 
+  return True
+ else:
+          # Replace with your file path
+        size_in_bytes = get_file_size(file_path)
+        if size_in_bytes is not None:
+            print(f"The size of the file is {size_in_bytes} bytes.")
+        else:
+            print("Could not retrieve file size.")
+
 
 def inspect_text_blocks(pdf_path):
     pdf_document = fitz.open(pdf_path)
@@ -100,5 +113,4 @@ def inspect_text_blocks(pdf_path):
 
 
 # inspect_text_blocks(file_path)
-text_percentage = get_text_area_percentage(file_path)
-print(f"Text occupies: {text_percentage:.2f}% of the page")
+classification(file_path,thr=40)
