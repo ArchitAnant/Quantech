@@ -32,3 +32,45 @@ def translate_text(input_text, tgt_lang):
 #     tgt_lang = input("Enter the target language code (e.g., 'ben_Beng' for Bengali): ")
 #     translated_output = translate_text(input_text, tgt_lang)
 #     print(translated_output)
+# Initialize the translation pipeline
+translator = pipeline('translation', model=model, tokenizer=tokenizer, src_lang='eng_Latn', tgt_lang='ben_Beng', max_length=400,device=0)
+
+def translate_docx(input_docx, src_lang, tgt_lang, output_docx, encoding='utf-8'):
+    try:
+        # Load the input .docx file
+        document = Document(input_docx)
+        translated_doc = Document()
+
+        # Iterate over each paragraph in the document
+        for paragraph in document.paragraphs:
+            text_content = paragraph.text
+
+            # Translate the text content
+            if text_content.strip():  # Check if the paragraph is not empty
+                translated_text = translator(text_content)[0]['translation_text']
+                translated_doc.add_paragraph(translated_text)
+            else:
+                translated_doc.add_paragraph("")  # Add a blank paragraph for empty lines
+
+        # Save the translated content to the output .docx file
+        translated_doc.save(output_docx)
+
+        print(f"Translated content saved to '{output_docx}'")
+
+    except FileNotFoundError:
+        print(f"Error: The file '{input_docx}' was not found.")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+
+# User input for source and target languages
+src_lang = 'eng_Latn'
+tgt_lang = 'asm_Beng'
+
+# Input DOCX file path
+input_docx = '/content/Rabindranath Tagore.docx'
+
+# Output DOCX file path
+output_docx = 'translated_output2.docx'
+
+# Call the translation function
+translate_docx(input_docx, src_lang, tgt_lang, output_docx)
