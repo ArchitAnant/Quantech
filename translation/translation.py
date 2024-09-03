@@ -26,9 +26,9 @@ def translate_text(input_text, tgt_lang):
         print(f"An error occurred: {str(e)}")
         return None
 
-# Example usage
-if _name_ == "_main_":
-    input_text = "This is an example text that needs to be translated. " * 50  # Large input text
-    tgt_lang = input("Enter the target language code (e.g., 'ben_Beng' for Bengali): ")
-    translated_output = translate_text(input_text, tgt_lang)
-    print(translated_output)
+# # Example usage
+# if _name_ == "_main_":
+#     input_text = "This is an example text that needs to be translated. " * 50  # Large input text
+#     tgt_lang = input("Enter the target language code (e.g., 'ben_Beng' for Bengali): ")
+#     translated_output = translate_text(input_text, tgt_lang)
+#     print(translated_output)
