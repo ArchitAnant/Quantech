@@ -16,6 +16,18 @@ with pyzipper.AESZipFile(zip_file, 'w', compression=pyzipper.ZIP_LZMA) as zf:
     zf.setencryption(pyzipper.WZ_AES, nbits=256)  # AES encryption with 256-bit key
     zf.write(file_to_encrypt)
     file_names = zf.namelist()
+import pyzipper
+
+def encrypt(zipname, filename, password):
+
+    with pyzipper.AESZipFile(zipname, 'w', compression=pyzipper.ZIP_LZMA) as zf:
+        zf.setpassword(password)
+        zf.setencryption(pyzipper.WZ_AES, nbits=256)  # AES encryption with a 256-bit key
+        zf.write(filename)
+        file_names = zf.namelist()
+    
+    return file_names
+
 
 print("File encrypted and saved as a zip archive successfully.")
 
