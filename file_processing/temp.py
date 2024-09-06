@@ -1,7 +1,7 @@
 import fitz
 def images_in_pdf():
     # return images_between_text, image_dimensions of the images at the end and beggining of every page of the pdf
-    pdf_document = fitz.open("/Users/macbook/Documents/Quantech/file_processing/test_files/single_page.pdf")
+    pdf_document = fitz.open("/Users/architanant/Documents/Quantech/file_processing/test_files/single_page.pdf")
     images_between_text = False
     image_dimensions = {}
 
@@ -20,9 +20,10 @@ def images_in_pdf():
 
 
   # PyMuPDF
-def images_in_pdf(): 
+import fitz  # PyMuPDF
 
-    pdf_path = "/Users/macbook/Documents/Quantech/file_processing/test_files/single_page.pdf"
+def images_in_pdf():
+    pdf_path = "/Users/architanant/Documents/Quantech/file_processing/test_files/multifile.pdf"
     pdf_document = fitz.open(pdf_path)
 
     # Iterate through each page in the PDF
@@ -55,13 +56,13 @@ def images_in_pdf():
                 x0, y0 = rect[0], rect[1]  # Top-left corner
                 x1, y1 = rect[2], rect[3]  # Bottom-right corner
                 
-                # Determine the vertical position of the image
+                # Determine the vertical position of the image relative to the top
                 image_middle_y = (y0 + y1) / 2  # The middle y-coordinate of the image
 
-                # Divide the page into top, middle, and bottom thirds
-                if image_middle_y >= (2/3) * page_height:
+                # Divide the page into top, middle, and bottom thirds relative to the top
+                if image_middle_y <= (1/3) * page_height:
                     position = "Top"
-                elif image_middle_y >= (1/3) * page_height:
+                elif image_middle_y <= (2/3) * page_height:
                     position = "Middle"
                 else:
                     position = "Bottom"
@@ -71,7 +72,5 @@ def images_in_pdf():
                 print(f"  Position: {position} (y-coordinate: {image_middle_y})")
 
     pdf_document.close()
-
-
             
 print(images_in_pdf())
