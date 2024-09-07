@@ -55,10 +55,10 @@ def add_text_to_image(image_path, user_data, bounding_boxes, font_path="arial.tt
     """
     Adds text to an image, placing the text inside given bounding boxes.
     
-    :param image_path: path to the base image (marksheet)
-    :param user_data: dictionary containing field names and corresponding text
-    :param bounding_boxes: dictionary containing field names and their corresponding bounding box
-    :param font_path: path to the font file used for the text
+    :param image_path: Path to the base image (marksheet).
+    :param user_data: Dictionary containing field names and corresponding text.
+    :param bounding_boxes: Dictionary containing field names and their corresponding bounding box.
+    :param font_path: Path to the font file used for the text.
     """
     # Load the image
     img = Image.open(image_path)
@@ -85,19 +85,31 @@ def add_text_to_image(image_path, user_data, bounding_boxes, font_path="arial.tt
             # Draw the text at the calculated position
             draw.text((x1, y1), text, font=font, fill="black")
 
+    # Add fixed text for the "Signature Of The Parent With Date" field
+    signature_box = bounding_boxes["Signature Of The Parent With Date"]
+    upper_left, lower_right = signature_box
+    x1, y1 = upper_left
+    draw.text((x1, y1), "[Digital Sign]", font=font, fill="black")
+
     # Save the resulting image
     img.save("filled_marksheet.png")
     img.show()
 
-# User data
-user_data = {
-    "Name": "ABCD",
-    "Roll No": "2361000",
-    "Department": "Cse AIML",
-    "Name Of The Parent:": "ABCD",
-    "Mobile Number Of The Parent": "973236XXXX",
-    "Signature Of The Parent With Date": "[Digitaly Signed]"
-}
+def get_user_input():
+    """
+    Prompts the user for input to fill in the fields on the marksheet.
+    
+    :return: A dictionary containing the user input for each field.
+    """
+    user_data = {
+        "Name": input("Enter Name: "),
+        "Roll No": input("Enter Roll No: "),
+        "Department": input("Enter Department: "),
+        "Name Of The Parent:": input("Enter Name Of The Parent: "),
+        "Mobile Number Of The Parent": input("Enter Mobile Number Of The Parent: "),
+        # Excluding the "Signature Of The Parent With Date" field as it's fixed
+    }
+    return user_data
 
 # Bounding boxes
 bounding_boxes = {
@@ -106,11 +118,14 @@ bounding_boxes = {
     "Department": ((20, 235), (798, 266)),
     "Name Of The Parent:": ((230, 613), (605, 620)),
     "Mobile Number Of The Parent": ((335, 674), (659, 698)),
-    "Signature Of The Parent With Date":((368, 739), (582, 750))
+    "Signature Of The Parent With Date": ((368, 739), (582, 750))
 }
 
-# Example usage:
+# Get user input
+user_data = get_user_input()
+
+# Path to the base image
 image_path = "NOC.jpg"
 
-# Call the function
+# Call the function to add text to the image
 add_text_to_image(image_path, user_data, bounding_boxes)

@@ -62,7 +62,7 @@ class TableExtractor:
         c.save()
 
 # #Sample Usage
-# extractor = TableExtractor("1234_img.png")
+# extractor = TableExtractor("1234.png")
 # tables = extractor.extract_tables()
 # extractor.create_pdf_with_tables("output_tables.pdf")
 
