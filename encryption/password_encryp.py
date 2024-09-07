@@ -3,6 +3,7 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 import os
+import csv
 import base64
 from getpass import getpass
 
@@ -66,18 +67,38 @@ def encrypt_file(password, input_file, output_file):
     print(f"File '{input_file}' successfully encrypted to '{output_file}'")
 
 # Example usage
-if __name__ == "__main__":
-    # Get the password input from the user (secure input, no echo)
-    password = getpass("Enter password: ")
+# if __name__ == "__main__":
+#     # Get the password input from the user (secure input, no echo)
+#     password = getpass("Enter password: ")
 
-    input_file = "plaintext_file.txt"  # Path to the plaintext file to encrypt
-    output_file = "encrypted_file.bin"  # Path to save the encrypted file
+#     input_file = "plaintext_file.txt"  # Path to the plaintext file to encrypt
+#     output_file = "encrypted_file.bin"  # Path to save the encrypted file
 
-    # Call the encryption function
-    encrypt_file(password, input_file, output_file)
+#     # Call the encryption function
+#     encrypt_file(password, input_file, output_file)
 
 
 # Take the password as user input securely
+
+def read_csv():
+    #read the csv which has which has id,name and isSecured
+    with open('/Users/architanant/Documents/Quantech/encryption/datafile.csv', mode='r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            print(row)
+            if row[2] == '1':
+                choice = input("The file is secured\nWould you like to open the file? (y/n)")
+                if choice == 'y':
+                    password = getpass("Enter password: ")
+                    decrypt_file_and_print(password,'/Users/architanant/Documents/Quantech/temp_out.txt',"yt.txt")
+
+            else:
+                if row[2] == '0':
+                    choice = input("The file is not encrypted\nWhould you encrypt the file(y/n)?: ")
+                    if choice == 'y':
+                        password = getpass("Enter password: ")
+                        encrypt_file(password,row[1],"temp_out.txt")
+        
 
 
 # Function to decrypt a file
@@ -120,12 +141,6 @@ def decrypt_file_and_print(password, input_file, output_file):
 
     print(f"File '{input_file}' successfully decrypted to '{output_file}'")
 
-# Example usage
-if __name__ == "__main__":
-    password = getpass("Enter password: ")
 
-    input_file = "encrypted_file.bin"  # Path to the encrypted file
-    output_file = "decrypted_file.txt"  # Path to save the decrypted file
-
-    # Call the decryption function
-    decrypt_file_and_print(password, input_file, output_file)
+# password = getpass("Enter password: ")
+# decrypt_file_and_print(password,'/Users/architanant/Documents/Quantech/temp_out.txt',"yp.txt")
