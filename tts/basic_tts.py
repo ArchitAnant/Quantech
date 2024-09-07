@@ -6,5 +6,3 @@ def save_mp3(string):
     tts = gTTS(text=string, lang='en', slow=False)
     tts.save("output.mp3")
 
-
-save_mp3("This is TTS")
