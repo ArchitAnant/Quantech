@@ -61,4 +61,4 @@ def ingest_pdf(source_path):
         df = ft.df()
         df.to_csv(f"table_{i}.csv")
         display(df)
-ingest_pdf("pdf_path")
+# ingest_pdf("pdf_path")

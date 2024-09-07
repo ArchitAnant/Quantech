@@ -62,15 +62,15 @@ def translate_docx(input_docx, src_lang, tgt_lang, output_docx, encoding='utf-8'
     except Exception as e:
         print(f"An error occurred: {str(e)}")
 
-# User input for source and target languages
-src_lang = 'eng_Latn'
-tgt_lang = 'asm_Beng'
+# # User input for source and target languages
+# src_lang = 'eng_Latn'
+# tgt_lang = 'asm_Beng'
 
-# Input DOCX file path
-input_docx = '/content/Rabindranath Tagore.docx'
+# # Input DOCX file path
+# input_docx = '/content/Rabindranath Tagore.docx'
 
-# Output DOCX file path
-output_docx = 'translated_output2.docx'
+# # Output DOCX file path
+# output_docx = 'translated_output2.docx'
 
-# Call the translation function
-translate_docx(input_docx, src_lang, tgt_lang, output_docx)
+# # Call the translation function
+# translate_docx(input_docx, src_lang, tgt_lang, output_docx)

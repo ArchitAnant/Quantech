@@ -68,5 +68,5 @@ def process_pdf_and_query(file_path: str, question: str):
     return chain.invoke(question)
 
 # Example usage of the function
-file_path = "/home/aritra/SIH/test (2).pdf"
-question = "Why did  Blitz failed?"
+# file_path = "/home/aritra/SIH/test (2).pdf"
+# question = "Why did  Blitz failed?"

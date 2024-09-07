@@ -72,7 +72,7 @@ class ImageTableExtractor:
         c.save()
 
 # #Sample Usage
-# extractor = TableExtractor("1234.png")
+# extractor = ImageTableExtractor("1234.png")
 # tables = extractor.extract_tables()
 # extractor.create_pdf_with_tables("output_tables.pdf")
 
@@ -250,11 +250,11 @@ class PdfTableExtractor:
 
 # Usage example
 processor = PdfTableExtractor("basic-text.pdf", start_page=1, end_page=1)  
-all_results = processor.process_all_pages()
+# all_results = processor.process_all_pages()
 
-for page, tables in all_results.items():
-    print(f"Page {page}: {len(tables)} tables found")
-    for i, df in enumerate(tables, 1):
-        print(f"  Table {i} shape: {df.shape}")
+# for page, tables in all_results.items():
+#     print(f"Page {page}: {len(tables)} tables found")
+#     for i, df in enumerate(tables, 1):
+#         print(f"  Table {i} shape: {df.shape}")
 
-processor.create_pdf_from_tables("output_tables.pdf")
+# processor.create_pdf_from_tables("output_tables.pdf")

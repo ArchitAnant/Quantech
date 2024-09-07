@@ -13,3 +13,4 @@ Pillow
 PyPDF2
 pytesseract
 python_docx
+gtts
