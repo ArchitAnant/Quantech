@@ -1,2 +1,15 @@
+transformers
 cryptography==43.0.1
 pyzipper==0.3.6
+easyocr
+fitz
+fpdf
+numpy
+opencv_contrib_python
+opencv_python
+opencv_python_headless
+pdf2image
+Pillow
+PyPDF2
+pytesseract
+python_docx
