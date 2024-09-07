@@ -2,7 +2,6 @@ transformers
 cryptography==43.0.1
 pyzipper==0.3.6
 easyocr
-fitz
 fpdf
 numpy
 opencv_contrib_python
@@ -14,3 +13,7 @@ PyPDF2
 pytesseract
 python_docx
 gtts
+langchain 
+langchain-community 
+chromadb
+pymupdf
