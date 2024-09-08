@@ -1,14 +1,14 @@
 import os
-from file_processing.machine_readablity import is_machine_readable
-from file_processing.readablity import read_doc,read_pdf
+
 from searching import search
 from translation.translation import translate_text
 from tts.basic_tts import save_mp3
 from encryption.password_encryp import read_csv
 from searching.searching import find_word_location
 from standardisation.table_extract import PdfTableExtractor,ImageTableExtractor
-from standardisation.pdftocsv import read_csv
+from standardisation.pdftocsv import ingest_pdf
 from standardisation import tomachinereadable
+from file_processing import machine_readablity,readablity
 
 
 
@@ -84,7 +84,7 @@ def perform_auto(file_path,l):
                save_mp3(input_text)
           else:
                if l[2]==1:
-                    input_text = read_pdf(file_path)
+                    input_text = readablity.read_pdf(file_path)
                else:
                     translated_output = translate_text(input_text, tgt_lang)
                     print(translated_output)
@@ -96,7 +96,7 @@ else:
     print(f'The file "{file_path}" does not exist.')
 
 
-if(is_machine_readable(file_path)==True):
+if(machine_readablity.is_machine_readable(file_path)==True):
      print ("File is  machine readable.")
 else:
      print("file is non machine readable.")
@@ -126,7 +126,7 @@ elif choice==2:
         print("Options\n 1.from pdf\n2.from img\n3. Formatting")
         ch = int(input("Enter choice no:"))
         if ch == 1:
-          processor1 = PdfTableExtractor("basic-text.pdf", start_page=1, end_page=1)   
+          processor1 = PdfTableExtractor(file_path, start_page=1, end_page=1)   
           all_results = processor1.process_all_pages()
 
           for page, tables in all_results.items():
@@ -155,9 +155,9 @@ elif choice==2:
 
 elif choice==3:
      if ".doc" in file_path:
-          input_text = read_doc(file_path)
+          input_text = readablity.read_doc(file_path)
      else:
-          input_text = read_pdf(file_path)
+          input_text = readablity.read_pdf(file_path)
      tgt_lang = input("Enter the target language code (e.g., 'ben_Beng' for Bengali): ")
      translated_output = translate_text(input_text, tgt_lang)
      print(translated_output)
@@ -165,9 +165,9 @@ elif choice==3:
 
 elif choice==4:
      if ".doc" in file_path:
-          input_text = read_doc(file_path)
+          input_text = readablity.read_doc(file_path)
      else:
-          input_text = read_pdf(file_path)
+          input_text = readablity.read_pdf(file_path)
      save_mp3(input_text)
       #tts
 elif choice==5:

@@ -123,8 +123,8 @@ class MarksheetFiller:
         return user_data
 
 # Usage example:
-if __name__ == "__main__":
-    image_path = "NOC.jpg"
-    filler = MarksheetFiller(image_path)
-    user_data = MarksheetFiller.get_user_input()
-    filler.add_text_to_image(user_data)
+# if __name__ == "__main__":
+#     image_path = "NOC.jpg"
+#     filler = MarksheetFiller(image_path)
+#     user_data = MarksheetFiller.get_user_input()
+#     filler.add_text_to_image(user_data)

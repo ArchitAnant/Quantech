@@ -1,6 +1,6 @@
 
 import fitz  
-from readablity import check_images_in_pdf, read_pdf
+from .readablity import check_images_in_pdf, read_pdf
 def return_layout(file_path):
     dpi = 72
     
@@ -73,7 +73,7 @@ def is_machine_readable(file_path):
     else:
         if len(read_pdf(file_path))==0:
             print("no text just image")
-            # return False
+            return False
         else:
             pos_list,dim_list=return_layout(file_path)
             print(pos_list)

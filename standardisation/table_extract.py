@@ -249,7 +249,7 @@ class PdfTableExtractor:
         print(f"PDF created successfully: {output_filename}")
 
 # Usage example
-processor = PdfTableExtractor("basic-text.pdf", start_page=1, end_page=1)  
+# processor = PdfTableExtractor("basic-text.pdf", start_page=1, end_page=1)  
 # all_results = processor.process_all_pages()
 
 # for page, tables in all_results.items():
